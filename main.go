@@ -52,7 +52,7 @@ func biller3(w http.ResponseWriter, r *http.Request) {
 	request := Channel{}
 	err := xml.Unmarshal(body, &request)
 	if err != nil {
-		log.Printf("Error unmarshal JSON: %s", err.Error())
+		log.Printf("Error unmarshal XML: %s", err.Error())
 	}
 	fmt.Println(request)
 	appHdr := request.AppHdr
@@ -70,7 +70,7 @@ func biller3(w http.ResponseWriter, r *http.Request) {
 		document := Doc{}
 		err := xml.Unmarshal(body, &document)
 		if err != nil {
-			log.Printf("Error unmarshal JSON: %s", err.Error())
+			log.Printf("Error unmarshal XML: %s", err.Error())
 		}
 
 		CrAccId := *document.Document.Message.CreditTransferTransactionInformation[0].CdtrAcct.Id.Other.Identification
