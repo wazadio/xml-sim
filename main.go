@@ -3,14 +3,13 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/j03hanafi/bankiso/iso20022/pacs"
+	"github.com/j03hanafi/bankiso/iso20022/prxy"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-
-	"github.com/gorilla/mux"
-	"github.com/j03hanafi/bankiso/iso20022/pacs"
-	"github.com/j03hanafi/bankiso/iso20022/prxy"
 )
 
 func main() {
@@ -36,8 +35,60 @@ func pathHandler() *mux.Router {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/biller", biller).Methods("POST")
+	router.HandleFunc("/biller3", biller3).Methods("POST")
 
 	return router
+}
+
+func biller3(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("New Request from BIFast Connector XML")
+	fmt.Println("New Request from BIFast Connector XML")
+
+	body, _ := ioutil.ReadAll(r.Body)
+	rawRequest := string(body)
+	log.Println(rawRequest)
+
+	request := Channel{}
+	err := xml.Unmarshal(body, &request)
+	if err != nil {
+		log.Printf("Error unmarshal JSON: %s", err.Error())
+	}
+	fmt.Println(request)
+	appHdr := request.AppHdr
+	bizMsgIdr := fmt.Sprintf("%v", *appHdr.BusinessMessageIdentifier)
+	trxType := bizMsgIdr[16:19]
+	fmt.Println(trxType)
+	var fileName string
+
+	switch trxType {
+	case "510":
+		type Doc struct {
+			XMLName  xml.Name              `xml:"BusMsg"`
+			Document pacs.Document00800108 `xml:"Document"`
+		}
+		document := Doc{}
+		err := xml.Unmarshal(body, &document)
+		if err != nil {
+			log.Printf("Error unmarshal JSON: %s", err.Error())
+		}
+
+		CrAccId := *document.Document.Message.CreditTransferTransactionInformation[0].CdtrAcct.Id.Other.Identification
+		fmt.Println(CrAccId)
+		fileName = "accEnqRes.xml"
+	}
+	fileName = "xml/" + fileName
+	fmt.Println("filename:", fileName)
+	file, _ := os.Open(fileName)
+	defer file.Close()
+
+	response, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	responseFormatter2(w, response, 200)
+
 }
 
 func biller(w http.ResponseWriter, r *http.Request) {
@@ -47,7 +98,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 	body, _ := ioutil.ReadAll(r.Body)
 	log.Println(string(body))
 
-	request := BusMsg{}
+	requestRaw := ChannelInput{}
+	request := requestRaw.BusMsg
 	err := xml.Unmarshal(body, &request)
 	if err != nil {
 		log.Printf("Error unmarshal JSON: %s", err.Error())
@@ -224,4 +276,10 @@ func responseFormatter(w http.ResponseWriter, data interface{}, statusCode int) 
 	w.Header().Set("Content-Type", "application/xml")
 	w.WriteHeader(statusCode)
 	xml.NewEncoder(w).Encode(data)
+}
+
+func responseFormatter2(w http.ResponseWriter, data []byte, statusCode int) {
+	w.Header().Set("Content-Type", "application/xml")
+	w.WriteHeader(statusCode)
+	w.Write(data)
 }
