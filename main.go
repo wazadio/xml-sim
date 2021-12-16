@@ -187,10 +187,6 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		//============================================================================
 	}
 
-	//fmt.Println("Enter file name: ")
-
-	//fmt.Scanln(&fileName)
-	//
 	fileName = "xml/" + fileName
 	fmt.Println("filename:", fileName)
 
@@ -201,8 +197,6 @@ func biller(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// xml.Unmarshal(b, &response)
-	// fmt.Println("response:", response)
 
 	responseFormatter(w, response, 200)
 }
