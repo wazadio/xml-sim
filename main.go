@@ -133,7 +133,7 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		case "510654300":
 			fileName = "accountEnquiryResponse.xml"
 		case "511654182":
-			fileName = "sampleAccountEnquiry2.json"
+			fileName = "accountEnquiryResponse2.xml"
 		}
 
 		//##################### Credit Transfer ###################################
