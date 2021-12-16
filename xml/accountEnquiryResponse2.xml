@@ -5,7 +5,7 @@
          <ns1:FIId>
             <ns1:FinInstnId>
                <ns1:Othr>
-                  <ns1:Id>FASTIDJA</ns1:Id>
+                  <ns1:Id>NOBUBANK</ns1:Id>
                </ns1:Othr>
             </ns1:FinInstnId>
          </ns1:FIId>
@@ -14,7 +14,7 @@
          <ns1:FIId>
             <ns1:FinInstnId>
                <ns1:Othr>
-                  <ns1:Id>INDOIDJA</ns1:Id>
+                  <ns1:Id>FASTIDJA</ns1:Id>
                </ns1:Othr>
             </ns1:FinInstnId>
          </ns1:FIId>
@@ -39,7 +39,7 @@
             <ns2:TxSts>ACTC</ns2:TxSts>
             <ns2:StsRsnInf>
                <ns2:Rsn>
-                  <ns2:Prtry>U000</ns2:Prtry>
+                  <ns2:Prtry>U182</ns2:Prtry>
                </ns2:Rsn>
             </ns2:StsRsnInf>
             <ns2:OrgnlTxRef>

@@ -136,107 +136,147 @@ func biller(w http.ResponseWriter, r *http.Request) {
 			fileName = "accountEnquiryResponse2.xml"
 		}
 
-		//##################### Credit Transfer ###################################
-		// case "010": // Credit Transfer
+	//##################### Credit Transfer ###################################
+	case "010": // Credit Transfer
 
-		// 	CrAccId := *document.Message.CreditTransferTransactionInformation[0].CdtrAcct.Id.Other.Identification
-		// 	switch CrAccId {
-		// 	case "0102345600":
-		// 		fileName = "sampleCreditTransferResponse.json"
-		// 	case "0102345184":
-		// 		fileName = "sampleCreditTransferResponse2.json"
-		// 	}
-		// case "012":
-		// 	fileName = "sampleCreditTransferResponse012.json"
-		// 	fmt.Println("012")
-		// case "110":
-		// 	fileName = "sampleCreditTransferResponsewithProxy.json"
-		// 	fmt.Println("110")
-		// //==========================================================================
+		var CrAccId string
+		doc, err := xmlquery.Parse(strings.NewReader(string(body)))
+		if err != nil {
+			panic(err)
+		}
 
-		// case "019":
-		// 	fileName = "sampleFItoFICreditTransfer.json"
-		// 	fmt.Println("019")
-		// case "011":
-		// 	fileName = "sampleReverseCreditTransfer.json"
-		// 	fmt.Println("011")
+		root := xmlquery.FindOne(doc, "//ns:BusMsg")
+		if n := root.SelectElement("//ns:Document/ns:FIToFICstmrCdtTrf/ns2:CdtTrfTxInf/ns2:CdtrAcct/ns2:Id/ns2:Othr/ns2:Id"); n != nil {
+			fmt.Printf("Name #%s\n", n.InnerText())
+			CrAccId = n.InnerText()
+		}
+		switch CrAccId {
+		case "0102345600":
+			fileName = "creditTransferResponse.xml"
+		case "0102345184":
+			fileName = "creditTransferResponse2.xml"
+		}
+	case "012":
+		fileName = "sampleCreditTransferResponse012.json"
+		fmt.Println("012")
+	case "110":
+		fileName = "sampleCreditTransferResponsewithProxy.json"
+		fmt.Println("110")
+	//==========================================================================
 
-		// // ################# Proxy Resolution #####################################
-		// case "610":
+	case "019":
+		fileName = "sampleFItoFICreditTransfer.json"
+		fmt.Println("019")
+	case "011":
+		fileName = "sampleReverseCreditTransfer.json"
+		fmt.Println("011")
 
-		// 	PxValue := *document.Message.LookUp.PrxyOnly.PrxyRtrvl.Val
-		// 	switch PxValue {
-		// 	case "086102345000":
-		// 		fileName = "sampleProxyResolution.json"
-		// 	case "086112345101":
-		// 		fileName = "sampleProxyResolution2.json"
-		// 	case "086112345804":
-		// 		fileName = "sampleProxyResolution3.json"
-		// 	case "086132345600":
-		// 		fileName = "sampleProxyResolution4.json"
-		// 	case "086142345804":
-		// 		fileName = "sampleProxyResolution5.json"
-		// 	case "08615234804":
-		// 		fileName = "sampleProxyResolution6.json"
-		// 	case "08616234811":
-		// 		fileName = "sampleProxyResolution7.json"
-		// 	case "08617234805":
-		// 		fileName = "sampleProxyResolution8.json"
-		// 	}
-		// case "611":
-		// 	fileName = "sampleProxyResolution611.json"
-		// 	fmt.Println("611")
-		// case "612":
-		// 	fileName = "sampleProxyResolution612.json"
-		// 	fmt.Println(("612"))
-		// // =========================================================================
+	// ################# Proxy Resolution #####################################
+	case "610":
 
-		// // ################# Proxy Registration Inquiry ############################
-		// case "620":
+		var PxValue string
+		doc, err := xmlquery.Parse(strings.NewReader(string(body)))
+		if err != nil {
+			panic(err)
+		}
 
-		// 	CsAccId := *document.Message.GroupHeader.MessageSender.Account.Identification.Other.Identification
-		// 	fmt.Println(CsAccId)
-		// 	switch CsAccId {
-		// 	case "6202345600":
-		// 		fileName = "sampleProxyRegistrationInquiry.json"
-		// 	case "6212345101":
-		// 		fileName = "sampleProxyRegistrationInquiry2.json"
-		// 	case "6222345808":
-		// 		fileName = "sampleProxyRegistrationInquiry3.json"
-		// 	case "6232345600":
-		// 		fileName = "sampleProxyRegistrationInquiry4.json"
-		// 	case "6242345600":
-		// 		fileName = "sampleProxyRegistrationInquiry5.json"
-		// 	case "6252345808":
-		// 		fileName = "sampleProxyRegistrationInquiry6.json"
-		// 	case "6262345806":
-		// 		fileName = "sampleProxyRegistrationInquiry7.json"
-		// 	}
-		// case "621":
-		// 	fileName = "sampleProxyRegistrationInquiry621.json"
-		// 	fmt.Println("621")
-		// case "622":
-		// 	fileName = "sampleProxyRegistrationInquiry622.json"
-		// 	fmt.Println("622")
-		// // =========================================================================
+		root := xmlquery.FindOne(doc, "//ns:BusMsg")
+		if n := root.SelectElement("//ns:Document/ns:PrxyLookUp/ns2:LookUp/ns2:PrxyOnly/ns2:PrxyRtrvl/ns2:Val"); n != nil {
+			fmt.Printf("Name #%s\n", n.InnerText())
+			PxValue = n.InnerText()
+		}
+		switch PxValue {
+		case "086102345000":
+			fileName = "proxyResolutionResponse.xml"
+		case "086112345101":
+			fileName = "proxyResolutionResponse2.xml"
+		case "086112345804":
+			fileName = "proxyResolutionResponse3.xml"
+		case "086132345600":
+			fileName = "proxyResolutionResponse4.xml"
+		case "086142345804":
+			fileName = "proxyResolutionResponse5.xml"
+		case "08615234804":
+			fileName = "proxyResolutionResponse6.xml"
+		case "08616234811":
+			fileName = "proxyResolutionResponse7.xml"
+		case "08617234805":
+			fileName = "proxyResolutionResponse8.xml"
+		}
+	case "611":
+		fileName = "sampleProxyResolution611.json"
+		fmt.Println("611")
+	case "612":
+		fileName = "sampleProxyResolution612.json"
+		fmt.Println(("612"))
+	// =========================================================================
 
-		// case "710":
-		// 	fileName = "sampleRegisterNewProxy.json"
-		// 	fmt.Println("710")
+	// ################# Proxy Registration Inquiry ############################
+	case "620":
 
-		// //#################### Proxy Maintenance ###################################
-		// case "720":
+		var PxRegId string
+		doc, err := xmlquery.Parse(strings.NewReader(string(body)))
+		if err != nil {
+			panic(err)
+		}
 
-		// 	SdAccNum := *document.Message.SupplementaryData[0].Envlp.Dtl.Cstmr.Id
-		// 	switch SdAccNum {
-		// 	case "7202345600":
-		// 		fileName = "sampleProxyMaintenance.json"
-		// 	case "7212345101":
-		// 		fileName = "sampleProxyMaintenance2.json"
-		// 	}
-		// case "721":
-		// 	fileName = "sampleProxyMaintenance721.json"
-		// 	fmt.Println("721")
+		root := xmlquery.FindOne(doc, "//ns:BusMsg")
+		if n := root.SelectElement("//ns:Document/ns:PrxyNqryReq/ns2:GrpHdr/ns2:MsgSndr/ns2:Acct/ns2:Id/ns2:Othr/ns2:Id"); n != nil {
+			fmt.Printf("Name #%s\n", n.InnerText())
+			PxRegId = n.InnerText()
+		}
+		fmt.Println(PxRegId)
+		switch PxRegId {
+		case "6202345600":
+			fileName = "proxyRegistrationResponse.xml"
+		case "6212345101":
+			fileName = "proxyRegistrationResponse2.xml"
+		case "6222345808":
+			fileName = "proxyRegistrationResponse3.xml"
+		case "6232345600":
+			fileName = "proxyRegistrationResponse4.xml"
+		case "6242345600":
+			fileName = "proxyRegistrationResponse5.xml"
+		case "6252345808":
+			fileName = "proxyRegistrationResponse6.xml"
+		case "6262345806":
+			fileName = "proxyRegistrationResponse7.xml"
+		}
+	case "621":
+		fileName = "sampleProxyRegistrationInquiry621.json"
+		fmt.Println("621")
+	case "622":
+		fileName = "sampleProxyRegistrationInquiry622.json"
+		fmt.Println("622")
+	// =========================================================================
+
+	case "710":
+		fileName = "sampleRegisterNewProxy.json"
+		fmt.Println("710")
+
+	//#################### Proxy Maintenance ###################################
+	case "720":
+
+		var PxValue string
+		doc, err := xmlquery.Parse(strings.NewReader(string(body)))
+		if err != nil {
+			panic(err)
+		}
+
+		root := xmlquery.FindOne(doc, "//ns:BusMsg")
+		if n := root.SelectElement("//ns:Document/ns:PrxyRegn/ns2:Regn/ns2:Prxy/ns2:Val"); n != nil {
+			fmt.Printf("Name #%s\n", n.InnerText())
+			PxValue = n.InnerText()
+		}
+		switch PxValue {
+		case "7202345600":
+			fileName = "proxyMaintenanceResponse.xml"
+		case "7212345101":
+			fileName = "proxyMaintenanceResponse2.xml"
+		}
+	case "721":
+		fileName = "sampleProxyMaintenance721.json"
+		fmt.Println("721")
 		//============================================================================
 	}
 
