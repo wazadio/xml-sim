@@ -2,24 +2,33 @@ package main
 
 import (
 	"encoding/xml"
+
 	"github.com/j03hanafi/bankiso/iso20022/head"
 )
 
 type BusMsg struct {
-	AppHdr   *head.BusinessApplicationHeaderV01 `xml:"AppHdr" json:"AppHdr"`
-	Document interface{}                        `xml:"Document" json:"Document"`
+	AppHdr *head.BusinessApplicationHeaderV01 `xml:"AppHdr"`
 }
 
-type ChannelInput struct {
-	BusMsg BusMsg `xml:"BusMsg" json:"BusMsg"`
+type Message interface {
+	String() (result string, ok bool)
 }
 
-type Channel struct {
-	XMLName        xml.Name                           `xml:"BusMsg"`
-	Ns             string                             `xml:"ns,attr"`
-	Ns1            string                             `xml:"ns1,attr"`
-	Ns2            string                             `xml:"ns2,attr"`
-	Xsi            string                             `xml:"xsi,attr"`
-	SchemaLocation string                             `xml:"schemaLocation,attr"`
-	AppHdr         *head.BusinessApplicationHeaderV01 `xml:"AppHdr" json:"AppHdr"`
+type Document struct {
+	Namespaces map[string]string
+	BusMsg     BusMsg `xml:"BusMsg"`
+}
+
+func (a *Document) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	a.Namespaces = map[string]string{}
+	for _, attr := range start.Attr {
+		if attr.Name.Space == "xmlns" {
+			a.Namespaces[attr.Name.Local] = attr.Value
+		}
+	}
+
+	// Go on with unmarshalling.
+	type app Document
+	aa := (*app)(a)
+	return d.DecodeElement(aa, &start)
 }
