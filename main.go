@@ -118,6 +118,7 @@ func biller(w http.ResponseWriter, r *http.Request) {
 
 	switch trxType {
 	case "000":
+		fmt.Println("Network management body request : ")
 		payload := networkRequest(body)
 		responseFormatter(w, payload, 200)
 	// ##################### Account Enquiry ##################################
@@ -347,7 +348,7 @@ func networkRequest(data []byte) []byte {
 	if err != nil {
 		fmt.Println("error")
 	}
-	fmt.Println(string(payload))
+	fmt.Println("response network management: ", string(payload))
 
 	return payload
 }
