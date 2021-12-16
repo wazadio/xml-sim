@@ -19,45 +19,38 @@
             </ns1:FinInstnId>
          </ns1:FIId>
       </ns1:To>
-      <ns1:BizMsgIdr>20210301FASTIDJA010HRB12345678</ns1:BizMsgIdr>
+      <ns1:BizMsgIdr>20210301FASTIDJA110HRB12345678</ns1:BizMsgIdr>
       <ns1:MsgDefIdr>pacs.002.001.10</ns1:MsgDefIdr>
+      <ns1:BizSvc>CLEAR</ns1:BizSvc>
       <ns1:CreDt>2021-03-01T12:00:00Z</ns1:CreDt>
    </ns:AppHdr>
    <ns:Document>
       <ns:FIToFIPmtStsRpt>
          <ns2:GrpHdr>
-            <ns2:MsgId>20210301FASTIDJA01012345678</ns2:MsgId>
+            <ns2:MsgId>20210301FASTIDJA11012345678</ns2:MsgId>
             <ns2:CreDtTm>2021-03-01T19:00:00.000</ns2:CreDtTm>
          </ns2:GrpHdr>
          <ns2:OrgnlGrpInfAndSts>
-            <ns2:OrgnlMsgId>20210301INDOIDJA51012345678</ns2:OrgnlMsgId>
+            <ns2:OrgnlMsgId>20210301INDOIDJA11012345678</ns2:OrgnlMsgId>
             <ns2:OrgnlMsgNmId>pacs.008.001.08</ns2:OrgnlMsgNmId>
          </ns2:OrgnlGrpInfAndSts>
          <ns2:TxInfAndSts>
-            <ns2:OrgnlEndToEndId>20210301INDOIDJA510ORB12345678</ns2:OrgnlEndToEndId>
-            <ns2:OrgnlTxId>20210301INDOIDJA51012345678</ns2:OrgnlTxId>
+            <ns2:OrgnlEndToEndId>20210301INDOIDJA110ORB12345678</ns2:OrgnlEndToEndId>
+            <ns2:OrgnlTxId>20210301INDOIDJA11012345678</ns2:OrgnlTxId>
             <ns2:TxSts>ACTC</ns2:TxSts>
             <ns2:StsRsnInf>
                <ns2:Rsn>
-                  <ns2:Prtry>U182</ns2:Prtry>
+                  <ns2:Prtry>U184</ns2:Prtry>
                </ns2:Rsn>
+               <ns2:AddtlInf>O 1234</ns2:AddtlInf>
             </ns2:StsRsnInf>
             <ns2:OrgnlTxRef>
+               <ns2:IntrBkSttlmDt>2021-03-01</ns2:IntrBkSttlmDt>
                <ns2:Cdtr>
                   <ns2:Pty>
                      <ns2:Nm>JOHN SMITH</ns2:Nm>
                   </ns2:Pty>
                </ns2:Cdtr>
-               <ns2:CdtrAcct>
-                  <ns2:Id>
-                     <ns2:Othr>
-                        <ns2:Id>9</ns2:Id>
-                     </ns2:Othr>
-                  </ns2:Id>
-                  <ns2:Tp>
-                     <ns2:Prtry>CACC</ns2:Prtry>
-                  </ns2:Tp>
-               </ns2:CdtrAcct>
             </ns2:OrgnlTxRef>
             <ns2:SplmtryData>
                <ns2:Envlp>
