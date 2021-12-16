@@ -40,6 +40,7 @@ func pathHandler() *mux.Router {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/biller", biller).Methods("POST")
+	router.HandleFunc("/", networkManagement).Methods("POST")
 	router.HandleFunc("/biller3", biller3).Methods("POST")
 
 	return router
@@ -351,6 +352,35 @@ func networkRequest(data []byte) []byte {
 	fmt.Println("response network management: ", string(payload))
 
 	return payload
+}
+
+func networkManagement(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("New Request from BIFast Connector")
+
+	body, _ := ioutil.ReadAll(r.Body)
+	fmt.Println(string(body))
+
+	requestRaw := BusMsg{}
+	err := xml.Unmarshal(body, &requestRaw)
+	if err != nil {
+		fmt.Printf("Error unmarshal JSON: %s", err.Error())
+	}
+	fmt.Println("request: ", requestRaw)
+
+	// var msgID string
+	bzMsgID := fmt.Sprintf("%v", *requestRaw.AppHdr.BusinessMessageIdentifier)
+	trxType := bzMsgID[16:19]
+	fmt.Println("trxType:", trxType)
+
+	switch trxType {
+	case "000":
+		fmt.Println("Network management body request : ")
+		payload := networkRequest(body)
+		responseFormatter(w, payload, 200)
+	default:
+		fmt.Println("BusMsgId salah")
+	}
+
 }
 
 // func main() {
