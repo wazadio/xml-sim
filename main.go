@@ -39,9 +39,9 @@ func pathHandler() *mux.Router {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/biller", biller).Methods("POST")
-	router.HandleFunc("/", networkManagement).Methods("POST")
-	router.HandleFunc("/biller3", biller3).Methods("POST")
+	router.HandleFunc("/", biller).Methods("POST")
+	router.HandleFunc("/biller", networkManagement).Methods("POST")
+	//router.HandleFunc("/biller3", biller3).Methods("POST")
 
 	return router
 }
@@ -285,6 +285,7 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		fileName = "sampleProxyMaintenance721.json"
 		fmt.Println("721")
 		//============================================================================
+
 	}
 	if trxType != "000" {
 		fileName = "xml/" + fileName
