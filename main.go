@@ -39,9 +39,9 @@ func pathHandler() *mux.Router {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/biller", biller).Methods("POST")
-	router.HandleFunc("/", networkManagement).Methods("POST")
-	router.HandleFunc("/biller3", biller3).Methods("POST")
+	router.HandleFunc("/", biller).Methods("POST")
+	router.HandleFunc("/biller", networkManagement).Methods("POST")
+	//router.HandleFunc("/biller3", biller3).Methods("POST")
 
 	return router
 }
@@ -58,7 +58,7 @@ func biller3(w http.ResponseWriter, r *http.Request) {
 	request := BusMsg{}
 	err := xml.Unmarshal(body, &request)
 	if err != nil {
-		log.Printf("Error unmarshal JSON: %s", err.Error())
+		log.Printf("Error unmarshal XML: %s", err.Error())
 	}
 	fmt.Println(request)
 	appHdr := request.AppHdr
@@ -76,7 +76,7 @@ func biller3(w http.ResponseWriter, r *http.Request) {
 		document := Doc{}
 		err := xml.Unmarshal(body, &document)
 		if err != nil {
-			log.Printf("Error unmarshal JSON: %s", err.Error())
+			log.Printf("Error unmarshal XML: %s", err.Error())
 		}
 
 		CrAccId := *document.Document.Message.CreditTransferTransactionInformation[0].CdtrAcct.Id.Other.Identification
@@ -295,6 +295,7 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		fileName = "sampleProxyMaintenance721.json"
 		fmt.Println("721")
 		//============================================================================
+
 	}
 
 	if MsgDefIdr != "admn.001.001.01" {
