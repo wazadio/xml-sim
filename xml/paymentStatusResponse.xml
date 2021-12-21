@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:BusMsg xmlns:ns="urn:iso" xmlns:ns1="urn:iso:std:iso:20022:tech:xsd:head.001.001.01" xmlns:ns2="urn:iso:std:iso:20022:tech:xsd:pacs.002.001.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso ../../../xsd/phase1/MainCIHub.xsd ">
+   <ns:AppHdr>
+      <ns1:Fr>
+         <ns1:FIId>
+            <ns1:FinInstnId>
+               <ns1:Othr>
+                  <ns1:Id>FASTIDJA</ns1:Id>
+               </ns1:Othr>
+            </ns1:FinInstnId>
+         </ns1:FIId>
+      </ns1:Fr>
+      <ns1:To>
+         <ns1:FIId>
+            <ns1:FinInstnId>
+               <ns1:Othr>
+                  <ns1:Id>INDOIDJA</ns1:Id>
+               </ns1:Othr>
+            </ns1:FinInstnId>
+         </ns1:FIId>
+      </ns1:To>
+      <ns1:BizMsgIdr>20210301FASTIDJA010HRB12345678</ns1:BizMsgIdr>
+      <ns1:MsgDefIdr>pacs.002.001.10</ns1:MsgDefIdr>
+      <ns1:BizSvc>STTL</ns1:BizSvc>
+      <!-- To distinguish this usage of pacs.002 as a settlement confirmation notification -->
+      <ns1:CreDt>2021-03-01T12:00:00Z</ns1:CreDt>
+   </ns:AppHdr>
+   <ns:Document>
+      <ns:FIToFIPmtStsRpt>
+         <ns2:GrpHdr>
+            <ns2:MsgId>20210301FASTIDJA01012345678</ns2:MsgId>
+            <ns2:CreDtTm>2021-03-01T19:00:00.000</ns2:CreDtTm>
+         </ns2:GrpHdr>
+         <ns2:OrgnlGrpInfAndSts>
+            <ns2:OrgnlMsgId>20210301INDOIDJA01012345678</ns2:OrgnlMsgId>
+            <ns2:OrgnlMsgNmId>pacs.028.001.08</ns2:OrgnlMsgNmId>
+            <ns2:OrgnlCreDtTm>2021-03-01T19:00:00.000</ns2:OrgnlCreDtTm>
+         </ns2:OrgnlGrpInfAndSts>
+         <ns2:TxInfAndSts>
+            <ns2:OrgnlEndToEndId>20210301INDOIDJA010ORB12345678</ns2:OrgnlEndToEndId>
+            <ns2:OrgnlTxId>20210301INDOIDJA01012345678</ns2:OrgnlTxId>
+            <ns2:TxSts>ACTC</ns2:TxSts>
+            <ns2:StsRsnInf>
+               <ns2:Rsn>
+                  <ns2:Prtry>U000</ns2:Prtry>
+               </ns2:Rsn>
+               <ns2:AddtlInf>O 1234</ns2:AddtlInf>
+               <!-- Fraud check warning -->
+            </ns2:StsRsnInf>
+            <ns2:OrgnlTxRef>
+               <ns2:IntrBkSttlmDt>2021-03-01</ns2:IntrBkSttlmDt>
+               <ns2:Dbtr>
+                  <ns2:Pty>
+                     <ns2:Nm>JAMES BROWN</ns2:Nm>
+                     <!-- Debtor Name - copy from pacs.008 -->
+                  </ns2:Pty>
+               </ns2:Dbtr>
+               <ns2:DbtrAcct>
+                  <ns2:Id>
+                     <ns2:Othr>
+                        <ns2:Id>123456789</ns2:Id>
+                        <!-- Debtor Account ID - copy from pacs.008 -->
+                     </ns2:Othr>
+                  </ns2:Id>
+                  <ns2:Tp>
+                     <ns2:Prtry>CACC</ns2:Prtry>
+                     <!-- Debtor Account Type - copy from pacs.008 - mark used in XSD -->
+                  </ns2:Tp>
+               </ns2:DbtrAcct>
+               <ns2:DbtrAgt>
+                  <ns2:FinInstnId>
+                     <ns2:Othr>
+                        <ns2:Id>INDOIDJA</ns2:Id>
+                        <!-- Debtor Agent ID - copy from pacs.008 - mark used in XSD -->
+                     </ns2:Othr>
+                  </ns2:FinInstnId>
+               </ns2:DbtrAgt>
+               <ns2:CdtrAgt>
+                  <ns2:FinInstnId>
+                     <ns2:Othr>
+                        <ns2:Id>CENAIDJA</ns2:Id>
+                        <!-- Creditor Agent ID - copy from pacs.008 - mark used in XSD -->
+                     </ns2:Othr>
+                  </ns2:FinInstnId>
+               </ns2:CdtrAgt>
+               <ns2:Cdtr>
+                  <ns2:Pty>
+                     <ns2:Nm>JOHN SMITH</ns2:Nm>
+                     <!-- Creditor Name - copy from pacs.008 - mark used in XSD -->
+                  </ns2:Pty>
+               </ns2:Cdtr>
+               <ns2:CdtrAcct>
+                  <ns2:Id>
+                     <ns2:Othr>
+                        <ns2:Id>987654321</ns2:Id>
+                        <!-- Creditor account - copy from pacs.008 - mark used in XSD -->
+                     </ns2:Othr>
+                  </ns2:Id>
+                  <ns2:Tp>
+                     <ns2:Prtry>SVGS</ns2:Prtry>
+                     <!-- Creditor Account Type - copy from pacs.008 - mark used in XSD -->
+                  </ns2:Tp>
+               </ns2:CdtrAcct>
+            </ns2:OrgnlTxRef>
+            <ns2:SplmtryData>
+               <ns2:Envlp>
+                  <ns2:Dtl>
+                     <ns2:Dbtr>
+                        <ns2:Tp>01</ns2:Tp>
+                        <ns2:Id>0102030405060708</ns2:Id>
+                        <ns2:RsdntSts>01</ns2:RsdntSts>
+                        <ns2:TwnNm>0300</ns2:TwnNm>
+                     </ns2:Dbtr>
+                     <ns2:Cdtr>
+                        <ns2:Tp>01</ns2:Tp>
+                        <ns2:Id>0807060504030201</ns2:Id>
+                        <ns2:RsdntSts>01</ns2:RsdntSts>
+                        <ns2:TwnNm>0300</ns2:TwnNm>
+                     </ns2:Cdtr>
+                     <ns2:DbtrAgtAcct>
+                        <!-- N.B. Each participant has their own Settlement Account or Sub Account -->
+                        <ns2:Id>
+                           <ns2:Othr>
+                              <ns2:Id>654321098</ns2:Id>
+                           </ns2:Othr>
+                        </ns2:Id>
+                     </ns2:DbtrAgtAcct>
+                     <ns2:CdtrAgtAcct>
+                        <!-- N.B. Each participant has their own Settlement Account or Sub Account -->
+                        <ns2:Id>
+                           <ns2:Othr>
+                              <ns2:Id>890123456</ns2:Id>
+                           </ns2:Othr>
+                        </ns2:Id>
+                     </ns2:CdtrAgtAcct>
+                  </ns2:Dtl>
+               </ns2:Envlp>
+            </ns2:SplmtryData>
+         </ns2:TxInfAndSts>
+      </ns:FIToFIPmtStsRpt>
+   </ns:Document>
+</ns:BusMsg>

@@ -114,14 +114,22 @@ func biller(w http.ResponseWriter, r *http.Request) {
 	// var msgID string
 	var fileName string
 	bzMsgID := fmt.Sprintf("%v", *requestRaw.AppHdr.BusinessMessageIdentifier)
+	MsgDefIdr := *requestRaw.AppHdr.MessageDefinitionIdentifier
 	trxType := bzMsgID[16:19]
 	fmt.Println("trxType:", trxType)
+	fmt.Println("MsgDefIdr:", MsgDefIdr)
 
 	switch trxType {
 	case "000":
-		fmt.Println("Network management body request : ")
-		payload := networkRequest(body)
-		responseFormatter(w, payload, 200)
+		if MsgDefIdr != "pacs.028.001.04" {
+			fmt.Println("Network management body request : ")
+			payload := networkRequest(body)
+			responseFormatter(w, payload, 200)
+		} else {
+			print("ok")
+			fileName = "paymentStatusResponse.xml"
+		}
+
 	// ##################### Account Enquiry ##################################
 	case "510":
 		var CrAccId string
@@ -139,8 +147,10 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		switch CrAccId {
 		case "510654300":
 			fileName = "accountEnquiryResponse.xml"
+			fmt.Println(CrAccId)
 		case "511654182":
 			fileName = "accountEnquiryResponse2.xml"
+			fmt.Println(CrAccId)
 		}
 
 	//##################### Credit Transfer ###################################
@@ -175,7 +185,7 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		fileName = "sampleFItoFICreditTransfer.json"
 		fmt.Println("019")
 	case "011":
-		fileName = "sampleReverseCreditTransfer.json"
+		fileName = "creditTransferResponse.xml"
 		fmt.Println("011")
 
 	// ################# Proxy Resolution #####################################
@@ -286,7 +296,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("721")
 		//============================================================================
 	}
-	if trxType != "000" {
+
+	if MsgDefIdr != "admn.001.001.01" {
 		fileName = "xml/" + fileName
 		fmt.Println("filename:", fileName)
 
