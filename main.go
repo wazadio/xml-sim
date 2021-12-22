@@ -295,7 +295,9 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		fileName = "sampleProxyMaintenance721.json"
 		fmt.Println("721")
 		//============================================================================
-
+	default:
+		fileName = "rejectMessage.xml"
+		fmt.Println("default")
 	}
 
 	if MsgDefIdr != "admn.001.001.01" {
