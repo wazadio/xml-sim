@@ -151,6 +151,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 		case "511654182":
 			fileName = "accountEnquiryResponse2.xml"
 			fmt.Println(CrAccId)
+		case "0000000000":
+			fileName = "rejectMessage.xml"
 		}
 
 	//##################### Credit Transfer ###################################
@@ -172,6 +174,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 			fileName = "creditTransferResponse.xml"
 		case "0102345184":
 			fileName = "creditTransferResponse2.xml"
+		case "0000000000":
+			fileName = "rejectMessage.xml"
 		}
 	case "012":
 		fileName = "sampleCreditTransferResponse012.json"
@@ -219,6 +223,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 			fileName = "proxyResolutionResponse7.xml"
 		case "08617234805":
 			fileName = "proxyResolutionResponse8.xml"
+		case "0000000000":
+			fileName = "rejectMessage.xml"
 		}
 	case "611":
 		fileName = "sampleProxyResolution611.json"
@@ -258,6 +264,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 			fileName = "proxyRegistrationResponse6.xml"
 		case "6262345806":
 			fileName = "proxyRegistrationResponse7.xml"
+		case "0000000000":
+			fileName = "rejectMessage.xml"
 		}
 	case "621":
 		fileName = "sampleProxyRegistrationInquiry621.json"
@@ -290,6 +298,8 @@ func biller(w http.ResponseWriter, r *http.Request) {
 			fileName = "proxyMaintenanceResponse.xml"
 		case "7212345101":
 			fileName = "proxyMaintenanceResponse2.xml"
+		case "0000000000":
+			fileName = "rejectMessage.xml"
 		}
 	case "721":
 		fileName = "sampleProxyMaintenance721.json"
